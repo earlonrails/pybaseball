@@ -30,6 +30,12 @@ from getpass import getuser, getpass
 from github.GithubException import RateLimitExceededException
 import warnings
 
+EVENT_TYPES = {
+    'regular': ('.EVA','.EVN'),
+    'post': ('CS.EVE','D1.EVE','D2.EVE','W1.EVE','W2.EVE','WS.EVE'),
+    'asg': ('AS.EVE')
+}
+
 gamelog_columns = [
     'date', 'game_num', 'day_of_week', 'visiting_team',
     'visiting_team_league', 'visiting_team_game_num', 'home_team',
@@ -120,13 +126,7 @@ def events(season, kind='regular', export_dir='.'):
     if not os.path.exists(export_dir):
         os.mkdir(export_dir)
 
-    match kind:
-        case 'regular':
-            file_extension = ('.EVA','.EVN')
-        case 'post':
-            file_extension = ('CS.EVE','D1.EVE','D2.EVE','W1.EVE','W2.EVE','WS.EVE')
-        case 'asg':
-            file_extension = ('AS.EVE')
+    file_extension = EVENT_TYPES.get(kind)
 
     try:
         g = Github(GH_TOKEN)
