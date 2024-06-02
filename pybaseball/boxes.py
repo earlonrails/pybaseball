@@ -1,12 +1,9 @@
-import io
 from datetime import date
-from typing import Optional
 
 import pandas as pd
 from bs4 import BeautifulSoup
 
-from . import cache
-from .utils import most_recent_season, sanitize_date_range
+from .utils import sanitize_date_range
 from .datasources.bref import BRefSession
 
 session = BRefSession()
