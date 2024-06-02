@@ -107,9 +107,9 @@ parkid_url = 'https://raw.githubusercontent.com/chadwickbureau/retrosheet/master
 roster_url = 'https://raw.githubusercontent.com/chadwickbureau/retrosheet/master/seasons/{}/{}{}.ROS'
 event_url = 'https://raw.githubusercontent.com/chadwickbureau/retrosheet/master/seasons/{}/{}'
 
-def events(season, type='regular', export_dir='.'):
+def events(season, kind='regular', export_dir='.'):
     """
-    Pulls retrosheet event files for an entire season. The `type` argument
+    Pulls retrosheet event files for an entire season. The `kind` argument
     specifies whether to pull regular season, postseason or asg files. Valid
     arguments are 'regular', 'post', and 'asg'.
 
@@ -119,8 +119,8 @@ def events(season, type='regular', export_dir='.'):
     GH_TOKEN=os.getenv('GH_TOKEN', '')
     if not os.path.exists(export_dir):
         os.mkdir(export_dir)
-    
-    match type:
+
+    match kind:
         case 'regular':
             file_extension = ('.EVA','.EVN')
         case 'post':
@@ -215,7 +215,7 @@ def schedules(season):
     repo = g.get_repo('chadwickbureau/retrosheet')
     season_folder = [f.path[f.path.rfind('/')+1:] for f in repo.get_contents(f'seasons/{season}')]
     file_name = f'{season}schedule.csv'
-    
+
     if file_name not in season_folder:
         raise ValueError(f'Schedule not available for {season}')
     s = get_text_file(schedule_url.format(season, season))
