@@ -68,13 +68,5 @@ def boxes(team: str, date: str) -> pd.DataFrame:
     soup = get_soup(team, game_date)
     table = get_table(soup)
     table = table.dropna(how='all')  # drop if all columns are NA
-    # scraped data is initially in string format.
-    # convert the necessary columns to numeric.
-    for column in ['Age', '#days', 'G', 'PA', 'AB', 'R', 'H', '2B', '3B',
-                    'HR', 'RBI', 'BB', 'IBB', 'SO', 'HBP', 'SH', 'SF', 'GDP',
-                    'SB', 'CS', 'BA', 'OBP', 'SLG', 'OPS', 'mlbID']:
-        #table[column] = table[column].astype('float')
-        table[column] = pd.to_numeric(table[column])
-        #table['column'] = table['column'].convert_objects(convert_numeric=True)
     table = table.drop('', axis=1)
     return table
