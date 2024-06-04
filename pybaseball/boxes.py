@@ -68,5 +68,4 @@ def boxes(team: str, date: str) -> pd.DataFrame:
     soup = get_soup(team, game_date)
     table = get_table(soup)
     table = table.dropna(how='all')  # drop if all columns are NA
-    table = table.drop('', axis=1)
     return table
